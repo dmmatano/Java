@@ -1,0 +1,116 @@
+
+import java.util.Scanner;
+public class Main {
+
+    public static void main(String[] args) {
+        Pilha p = new Pilha();
+        Scanner input=new Scanner(System.in);
+        int entrada;
+        
+        while(true){
+          System.out.print("Digite um número:");
+          entrada=input.nextInt();
+          if(entrada<0){
+            break;
+          }
+          p.push(entrada);
+        }
+        p.show();
+        p.isPalindromo();
+    }
+    
+}
+
+class Pilha{
+   public int topo;
+   public int tam;
+   public int elemento[];
+   
+   
+
+    public Pilha(int t) {
+        this.topo = -1;
+        if (t>20){
+            System.out.println("Tamano tem que ser menor ou igual a 20");
+        }else{
+            this.tam = t;
+            elemento = new int[t];
+        }
+    }
+    
+    public Pilha() {
+        this.topo = -1;
+        this.tam = 20;
+        elemento = new int[20];        
+    }
+    
+    int isEmpty(){
+        if(this.topo < 0){
+          return 1;
+        }else{
+          return 0;
+        }
+    }
+    
+    int isFull(){
+        if(this.topo>=tam){
+          return 1;
+        }else{
+          return 0;
+        }
+    }
+   
+    int push(int elementoNovo){
+        this.topo++;
+        if(this.isFull()==1){
+          this.topo--;
+          System.out.println("Pilha cheia!");
+          return 1;
+        }else{
+          this.elemento[this.topo]=elementoNovo;
+          return 0;
+        }
+    }
+    
+    int pop(){
+        if(this.isEmpty()==1){
+          System.out.println("Pilha vazia!");
+          return -1000;
+        }else{
+          int topoRetirado=this.elemento[this.topo];
+          this.elemento[this.topo]=0;
+          this.topo--;
+          return topoRetirado;
+        }
+    }
+    
+    void show(){
+        if(this.isEmpty()!=1){
+            System.out.println("base");
+            for(int i=0;i<=this.topo;i++){
+              System.out.printf("%d\n",this.elemento[i]);
+            }
+            System.out.printf("topo\n");
+        }else{
+            System.out.println("Pilha vazia!");
+        }
+    }
+    
+    int getTop(){
+        return this.topo;
+    }
+    
+    int getPeek(){
+        return this.elemento[this.topo];
+    }
+
+    void isPalindromo(){
+      for(int i=0;i<=(this.topo/2);i++){
+        if(this.elemento[this.topo-i]!=this.elemento[i]){
+          System.out.println("Não é uma capicua");
+          return;
+        }
+      }
+      System.out.println("É uma capicua");
+    }
+}
