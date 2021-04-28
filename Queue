@@ -1,0 +1,72 @@
+class Fila{
+  public int tamanho;
+  public int[] elemento;
+  public int rear=-1;
+
+  public Fila(){
+    this.tamanho=10;
+    elemento=new int[10];
+  }
+  
+  public Fila(int n){
+    this.tamanho=n;
+    elemento=new int[n];
+  }
+
+
+  int isFull(){
+  if(this.rear>=this.tamanho){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+int isEmpty(){
+  if(this.rear < 0){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+int enqueue(int elementoNovo){
+  this.rear++;
+  if(this.isFull()==1){
+    this.rear--;
+    System.out.printf("\nOps, a fila esta completamente cheia\n");
+    return 0;
+  }else{
+    this.elemento[this.rear]=elementoNovo;
+    return 1;
+  }
+}
+
+int dequeue(){
+  if(this.isEmpty()==1){
+    System.out.printf("\nOps, a fila esta completamente vazia\n");
+    return -1000;
+  }else{
+    int elementoRetirado=this.elemento[0];
+    for(int i=0;i<this.rear;i++){
+      this.elemento[i]=this.elemento[i+1];
+    }
+    this.elemento[this.rear]=0;
+    this.rear--;
+    return elementoRetirado;
+  }
+}
+
+void show(){
+  for(int i=this.rear;i>=0;i--){
+    System.out.printf("%d ",this.elemento[i]);
+  }
+}
+
+}
+
+class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello world!");
+  }
+}
