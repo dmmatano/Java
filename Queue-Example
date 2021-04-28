@@ -1,0 +1,169 @@
+import java.util.Scanner;
+class Fila{
+  public int tamanho;
+  public String[] elemento;
+  public int rear=-1;
+
+  public Fila(){
+    this.tamanho=1000;
+    elemento=new String[1000];
+  }
+  
+  public Fila(int n){
+    this.tamanho=n;
+    elemento=new String[n];
+  }
+
+
+  int isFull(){
+  if(this.rear>=this.tamanho){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+int isEmpty(){
+  if(this.rear < 0){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+int enqueue(String elementoNovo){
+  this.rear++;
+  if(this.isFull()==1){
+    this.rear--;
+    System.out.printf("\nOps, a fila esta completamente cheia\n");
+    return 0;
+  }else{
+    this.elemento[this.rear]=elementoNovo;
+    return 1;
+  }
+}
+
+String dequeue(){
+  if(this.isEmpty()==1){
+    System.out.printf("\nOps, a fila esta completamente vazia\n");
+    return "";
+  }else{
+    String elementoRetirado=this.elemento[0];
+    for(int i=0;i<this.rear;i++){
+      this.elemento[i]=this.elemento[i+1];
+    }
+    this.elemento[this.rear]="";
+    this.rear--;
+    return elementoRetirado;
+  }
+}
+
+void show(){
+  for(int i=this.rear;i>=0;i--){
+    System.out.printf("%s ",this.elemento[i]);
+  }
+}
+
+}
+
+class Main {
+  public static void main(String[] args) {
+    Scanner input=new Scanner(System.in);    
+    int entradaInt=0, resultado, contador=0;
+    Fila oeste = new Fila();
+    Fila norte = new Fila();
+    Fila sul = new Fila();
+    Fila leste = new Fila();  
+    boolean primeiraEntrada=true;
+    while(true){
+      if(primeiraEntrada){
+        entradaInt=input.nextInt();
+      }
+      if(entradaInt==-1){
+        primeiraEntrada=false;
+        resultado=insereAviao(oeste);
+        if(resultado==0){
+          primeiraEntrada=true;
+          break;
+        }else{
+          entradaInt=resultado;
+          continue;
+        }
+      }else if(entradaInt==-3){
+        primeiraEntrada=false;
+        resultado=insereAviao(norte);
+        if(resultado==0){
+          primeiraEntrada=true;
+          break;
+        }else{
+          entradaInt=resultado;
+          continue;
+        }
+      }else if(entradaInt==-2){
+        primeiraEntrada=false;
+        resultado=insereAviao(sul);
+        if(resultado==0){
+          primeiraEntrada=true;
+          break;
+        }else{
+          entradaInt=resultado;
+          continue;
+        }
+      }else if(entradaInt==-4){
+        primeiraEntrada=false;
+        resultado=insereAviao(leste);
+        if(resultado==0){
+          primeiraEntrada=true;
+          break;
+        }else{
+          entradaInt=resultado;
+          continue;
+        }
+      }else{
+        System.out.println("Dado inválido !\n");
+        continue;
+      }
+    }
+    System.out.printf("front: ");
+    while(true){
+      boolean saiFora=true;
+      if(contador<=oeste.rear){
+        System.out.printf("%s ",oeste.elemento[contador]);
+        saiFora=false;
+      }
+      if(contador<=norte.rear){
+        System.out.printf("%s ",norte.elemento[contador]);
+        saiFora=false;
+      }
+      if(contador<=sul.rear){
+        System.out.printf("%s ",sul.elemento[contador]);
+        saiFora=false;
+      }
+      if(contador<=leste.rear){
+        System.out.printf("%s ",leste.elemento[contador]);
+        saiFora=false;
+      }
+      if(saiFora){
+        break;
+      }
+      contador++;
+    }
+    System.out.printf(":rear");
+    
+  }
+
+  public static int insereAviao(Fila fila){
+    Scanner input=new Scanner(System.in);
+    String entrada="";
+    while(true){
+      entrada=input.next();
+      if(entrada.charAt(0)=='A'){
+        fila.enqueue(entrada);
+      }else{
+        return Integer.parseInt(entrada);
+      }
+    }
+  }
+
+
+}
