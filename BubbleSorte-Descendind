@@ -1,0 +1,11 @@
+public class Main {
+  public static void main(String[] args) {
+    Sort ordenacao=new Sort();
+    int comp;
+    double vet[]={3.5,7,1.2,9.5,5.5,5.5,3,7.4};
+    ordenacao.bubbleSort(vet);
+    for(int i=0;i<vet.length;i++){
+      System.out.printf("%f\n",vet[i]);
+    }
+  }
+}
